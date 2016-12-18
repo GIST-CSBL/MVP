@@ -1,0 +1,30 @@
+Package: MVP
+Type: Package
+Title: An implementation of Mass spectrometry Data Preprocessor
+Version: 0.1.0
+Author@R: as.person(c(
+    "Geunho Lee <ghlee0513@gist.ac.kr> [aut, cre]",
+    "Hojung Nam <hjnam@gist.ac.kr> [cph]"
+    ))
+Author: Geunho Lee [aut, cre]
+Maintainer: Geunho Lee <ghlee0513@gist.ac.kr>
+Description: An implementation of mass spectrometry data preprocessor in R.
+    MVP handles dirty data such as duplicate records and missing values
+    in Mass spectrometry (MS) data. Users are able to obtain the results for
+    various cases as the MVP allows a user to specify the parameters.
+    It supports total several algorithms that are targeted to two different
+    mass analyzers (MA); Time of Flight MA and Orbitrap. Default behavior
+    without specified parameter is to use graph structure and property based
+    on the maximum clique.
+Depends:
+    R (>= 3.0.0)
+License: GPL-3 + file LICENSE
+LazyData: TRUE
+Imports:
+    data.table (>= 1.9.6),
+    dplyr (>= 0.5.0),
+    igraph (>= 1.0.1),
+    magrittr (>= 1.5),
+    stringr (>= 1.0.0),
+    readr
+RoxygenNote: 5.0.1
