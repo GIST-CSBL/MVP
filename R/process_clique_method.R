@@ -10,6 +10,7 @@
 #' @param conformity_thrsh Conformity threshold
 #'
 #' @return Dirty data-free data frame (data.table)
+#' @export
 apply_clique_method <- function(dt, key_cols, key_thrsh, intensity_cols,
                                 conformity_thrsh) {
   before_processed_dt <- dt
