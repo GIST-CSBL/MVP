@@ -1,7 +1,7 @@
 ## MVP
 ### An implementation of Mass spectrometry Data Preprocessor
 
-*	MVP is an open-source software for preprocessing mass spectrometry data.
+* MVP is an open-source software for preprocessing mass spectrometry data.
 * MVP is based on the R language and can be installed easily.
 * Users can set their own parameters to obtain preprocessed data for various situations.
 * Duplicate record and missing value problems are alleviated by MVP.
