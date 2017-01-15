@@ -30,24 +30,44 @@ After submission, we will announce the method to download CRAN or Bioconductor.
 
 ## Basic usage (Tutorials)
 
-MVP process is composed of two steps:
-
-* First step is refining input data for using MVP software
-
-  > Standardize file format, expression of missing value (0, 1, ...) to NA
-  
-  > Save and tell metadata to MVP
-  
-Example data is like this:
+In the package, we previde three example datasets that is reformated.  
+Users can access example dataset from this command.
 
 ```R
-      Primary ID Source Retention time (min)      Mass   VIP[2]  DS1.P_C14 DS1.P_C15 DS1.P_C20 DS1.P_C24 DS1.P_C35
-   1:     Metabolite1              11.3610  413.2665 75.65660   0.000000 801.22500  658.9790 829.51200 850.96200
-   2:     Metabolite2              11.3610  803.5420 52.90680   0.000000 385.30700  287.1710 461.28300 443.44500
-   3:     Metabolite3              11.3069  413.2666 50.47040 638.850000   1.94153  658.9790   1.80367   4.71944
-   4:     Metabolite4              11.3069  803.5420 34.93750 277.134000   0.00000  287.1710   0.00000   0.00000
-   5:     Metabolite5              10.6577  379.2823 31.49450   5.820570  49.79090    2.2531  45.17050   7.39718
+load("data/ToF_Positive_Ion_Cardiovascular_Patient.rda")
+load("data/ToF_Negative_Ion_Cardiovascular_Patient.rda")
+load("data/Orbitrap_Drug_Treatment.rda")
 ```
+
+Example data has form like this:
+
+```R
+   `Primary ID Source` `Retention time (min)`     Mass `VIP[3]`   CType1     CType2   CType3
+                 <chr>                  <dbl>    <dbl>    <dbl>    <dbl>      <dbl>    <dbl>
+1          Metabolite1                11.2528 281.2482  40.2478 166.2490 257.803000 147.0570
+2          Metabolite2                 9.9003 339.2325  30.8942   0.0000   0.000000   0.0000
+3          Metabolite3                11.1987 281.2479  28.0972 166.2490   0.009657 147.0570
+4          Metabolite4                10.6036 279.2324  27.1497 145.4630 283.385000 120.6870
+5          Metabolite5                 9.9544 339.2323  25.4900   0.0000   1.342160   0.0000
+6          Metabolite6                10.4413 327.2323  23.6419  51.8399   0.000000   0.0000
+7          Metabolite7                10.4413 327.2325  22.8225  51.8399 147.090000 221.9620
+8          Metabolite8                 9.7380 540.3302  16.7910 438.7380 328.657000 405.0670
+9          Metabolite9                 5.7346 179.0705  16.3673  35.6990  50.730500  64.3068
+10        Metabolite10                10.1708 253.2166  16.1379  17.3362  64.359700  22.4518
+# ... with 18,243 more rows, and 174 more variables: CType4 <dbl>, CType5 <dbl>, CType6 <dbl>
+```
+
+#### Data format reformating before applying MVP
+
+Each raw MS data has different format. For example, expression of missing value
+can be different (0, 1, NaN, ...). 
+Also, MVP need to know metadata (num of columns, intensity ratio columns ...)
+Thus, before applying MVP, users should execute preparation method below.
+
+```R
+reformated_data <- MVP::preprocess_input_data(ToF_Positive_Ion_Cardiovascular_Patient, c(3, 2), c(0.001, 0.3), 0)
+```
+
 
 From data format, we can see identifiers of MS data  
 The second and third column shows retention time and m/z ratio respectively  
@@ -55,8 +75,9 @@ And from 5th to final column represent intensity signal of each patient.
 
 
 For standardize of input raw file, we reformat the raw data like this
-```R
-reformated_data <- MVP::preprocess_input_data("foo/bar.tsv", c(3, 2), c(0.001, 0.3), 0)
-```
-  
-* After refining input data, MVP handle dirty data in input file
+
+
+---
+
+#### After refining input data, MVP handle dirty data in input file
+
