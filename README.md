@@ -30,7 +30,7 @@ After submission, we will announce the method to download CRAN or Bioconductor.
 
 ## Basic usage (Tutorials)
 
-In the package, we previde three example datasets that is reformated.  
+In the package, we previde three example datasets that is reformated by first step.  
 Users can access example dataset from this command.
 
 ```R
@@ -42,22 +42,22 @@ load("data/Orbitrap_Drug_Treatment.rda")
 Example data has form like this:
 
 ```R
-   `Primary ID Source` `Retention time (min)`     Mass `VIP[3]`   CType1     CType2   CType3
-                 <chr>                  <dbl>    <dbl>    <dbl>    <dbl>      <dbl>    <dbl>
-1          Metabolite1                11.2528 281.2482  40.2478 166.2490 257.803000 147.0570
-2          Metabolite2                 9.9003 339.2325  30.8942   0.0000   0.000000   0.0000
-3          Metabolite3                11.1987 281.2479  28.0972 166.2490   0.009657 147.0570
-4          Metabolite4                10.6036 279.2324  27.1497 145.4630 283.385000 120.6870
-5          Metabolite5                 9.9544 339.2323  25.4900   0.0000   1.342160   0.0000
-6          Metabolite6                10.4413 327.2323  23.6419  51.8399   0.000000   0.0000
-7          Metabolite7                10.4413 327.2325  22.8225  51.8399 147.090000 221.9620
-8          Metabolite8                 9.7380 540.3302  16.7910 438.7380 328.657000 405.0670
-9          Metabolite9                 5.7346 179.0705  16.3673  35.6990  50.730500  64.3068
-10        Metabolite10                10.1708 253.2166  16.1379  17.3362  64.359700  22.4518
-# ... with 18,243 more rows, and 174 more variables: CType4 <dbl>, CType5 <dbl>, CType6 <dbl>
+   `Primary ID Source` `Retention time (min)`     Mass `VIP[2]`    CType1    CType2   CType3    CType4     CType5
+                 <chr>                  <dbl>    <dbl>    <chr>     <dbl>     <dbl>    <dbl>     <dbl>      <dbl>
+1          Metabolite1                11.3610 413.2665  75.6566        NA 801.22500 658.9790 829.51200 850.962000
+2          Metabolite2                11.3610 803.5420  52.9068        NA 385.30700 287.1710 461.28300 443.445000
+3          Metabolite3                11.3069 413.2666  50.4704 638.85000   1.94153 658.9790   1.80367   4.719440
+4          Metabolite4                11.3069 803.5420  34.9375 277.13400        NA 287.1710        NA         NA
+5          Metabolite5                10.6577 379.2823  31.4945   5.82057  49.79090   2.2531  45.17050   7.397180
+6          Metabolite6                 9.7380 496.3401  26.8513 532.74500 622.35500 428.0600 553.41500 546.130000
+7          Metabolite7                 1.5148 100.0764  25.5866  78.38820  83.93800  67.1396 113.81900  73.692600
+8          Metabolite8                 9.7380 991.6699  23.5732 112.42800 184.42900  60.4640 165.55200 138.506000
+9          Metabolite9                10.8200 524.3715  22.7365 193.15100 228.16600 147.8830 203.60400 190.575000
+10        Metabolite10                 3.4083 775.8630  19.5246        NA        NA       NA        NA   0.001488
+# ... with 3,898 more rows, and 173 more variables: CType6 <dbl>, CType7 <dbl>, CType8 <dbl>, CType9 <dbl>
 ```
 
-#### Data format reformating before applying MVP
+#### Data format reformating before applying MVP (1st step)
 
 Each raw MS data has different format. For example, expression of missing value
 can be different (0, 1, NaN, ...). 
@@ -65,18 +65,43 @@ Also, MVP need to know metadata (num of columns, intensity ratio columns ...)
 Thus, before applying MVP, users should execute preparation method below.
 
 ```R
-reformated_data <- MVP::preprocess_input_data(ToF_Positive_Ion_Cardiovascular_Patient, c(3, 2), c(0.001, 0.3), 0)
+reformated_data <- MVP::preprocess_input_data("Foo/MS_Data_Path", c(3, 2), 5:181, 0)
 ```
 
-
-From data format, we can see identifiers of MS data  
+From example data format, we can see identifiers of MS data  
 The second and third column shows retention time and m/z ratio respectively  
-And from 5th to final column represent intensity signal of each patient.  
+And from 5th to final column represent intensity signal of each patient.
 
+> First argument represent the path of input MS file  
+> Second argument shows index of identifier (m/z, retention time ...) column  
+> Third argument should be set index of intensity signal column  
+> Fourth argument is expression of missing value in raw data file  
 
-For standardize of input raw file, we reformat the raw data like this
+Another example is shown in below, 
+for obtain this reformated data, users can input this command
 
+```R
+       CompID   CompMW       MZ  Time Frames  MS2s GoodIDs Composition Control1 Control2 Control3 Control4 Control5
+        <chr>    <chr>    <dbl> <dbl>  <chr> <chr>   <chr>       <chr>    <dbl>    <dbl>    <dbl>    <dbl>    <dbl>
+1   Compound1 110.1094 111.1167 16.45      4     0       0       C8H15  5451919  5859771  5607642  5596205  5622329
+2   Compound2 113.0586 114.0659  0.98      8     0       0     C4H8ON3  8872545  7635595  8179503  6046026  5472458
+3   Compound3  115.063 116.0703  0.99      6     1       0    C5H10O2N 18811215 22871758 19382179 20754701 25320232
+4   Compound4 117.0577 118.0650  5.64      4    15       0       C8H8N  2497441  2360456  1714853  2196303  1682624
+5   Compound5 117.0788 118.0860  1.00      8   194       0    C5H12O2N 25683704 25805455 25316523 22763418 25395905
+6   Compound6 117.9717 118.9789  0.15      5   133       0       C5N2P  2567835  2341199  2539197  2489484  2644816
+7   Compound7 117.9715 118.9788  0.41      1     0       0       C5N2P  2567519  2342544  2534912  2489798  2647408
+8   Compound8 117.9716 118.9788  0.70      4     0       0       C5N2P  2681419  2422994  2662704  2599097  2765844
+9   Compound9 117.9717 118.9790  6.82      2   933       0       C5N2P 30033529 31089689 30635252 32062554 33248868
+10 Compound10 117.9716 118.9789  6.92      3   683       0       C5N2P 73795605 75341181 75415681 78072006 80433690
+# ... with 3,224 more rows, and 115 more variables: Control6 <dbl>, Control7 <dbl>, Control8 <dbl>, Control9 <dbl>
+```
 
+We can see that 3rd column is m/z ratio and 4th column is retention time  
+Therefore, this command can be executed for getting reformated data
+
+```R
+reformated_data2 <- MVP::preprocess_input_data("Foo/MS_Data_Path", c(3, 4), 9:127, 0)
+```
 ---
 
 #### After refining input data, MVP handle dirty data in input file
