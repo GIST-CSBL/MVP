@@ -1,8 +1,3 @@
----
-output:
-  html_document: default
-  word_document: default
----
 ## MVP
 ### An implementation of Mass spectrometry Data Preprocessor
 
@@ -104,5 +99,33 @@ reformated_data2 <- MVP::preprocess_input_data("Foo/MS_Data_Path", c(3, 4), 9:12
 ```
 ---
 
-#### After refining input data, MVP handle dirty data in input file
+#### After preparing input data to reformated data, MVP can handle dirty data
 
+MVP provide many user specified parameters.  
+To obtain dirty preprocessed data, execute this command
+
+```R
+preprocessed_data_0.7 <- MVP::apply_clique_method(ToF_Positive_Ion_Cardiovascular_Patient, c(3, 2), c(0.001, 0.3), 5:181, 0.7)
+[1] "Start Iteration 1"
+  |======================================================================| 100%
+[1] "# of records (Before): 3908 -> # of records (After): 3589"
+[1] "Start Iteration 2"
+  |======================================================================| 100%
+[1] "# of records (Before): 3589 -> # of records (After): 3567"
+[1] "Start Iteration 3"
+  |======================================================================| 100%
+[1] "# of records (Before): 3567 -> # of records (After): 3567"
+```
+
+> First argument represent the reformated data from first step
+> Second argument shows index of identifier (m/z, retention time ...) column  
+> Third argument is the similarity threshold of each identifier 
+> Fourth argument should be set index of intensity signal column  
+> Fifth argument is record similarity when merging duplicate candidate records
+
+
+Users can specify parameters like this form  
+```R
+preprocessed_data_0.3 <- MVP::apply_clique_method(ToF_Positive_Ion_Cardiovascular_Patient, c(3, 2), c(0.001, 0.3), 5:181, 0.3)
+preprocessed_data_different_threshold_of_identifier <- MVP::apply_clique_method(ToF_Positive_Ion_Cardiovascular_Patient, c(3, 2), c(0.004, 0.1), 5:181, 0.7)
+```
