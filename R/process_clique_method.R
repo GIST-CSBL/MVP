@@ -1,5 +1,15 @@
 # mvp_env <- new.env(parent = emptyenv())
 
+#' Apply clique method to handle dirty data such as duplicate record
+#' and missing value problem
+#'
+#' @param dt Input data frame (data.table)
+#' @param key_cols Key (m/z, RT ...) column numbers
+#' @param key_thrsh Key (m/z, RT ...) column threshold with same order key_cols
+#' @param intensity_cols Intensity column numbers
+#' @param conformity_thrsh Conformity threshold
+#'
+#' @return Dirty data-free data frame (data.table)
 apply_clique_method <- function(dt, key_cols, key_thrsh, intensity_cols,
                                 conformity_thrsh) {
   before_processed_dt <- dt

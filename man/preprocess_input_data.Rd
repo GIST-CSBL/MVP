@@ -4,7 +4,8 @@
 \alias{preprocess_input_data}
 \title{Before applying MVP algorithm, preprocess input data such as na converting}
 \usage{
-preprocess_input_data(input, intensity_cols, na_expressions)
+preprocess_input_data(input, key_column_indicies, intensity_cols,
+  na_expressions)
 }
 \arguments{
 \item{input}{Input file path that want to process MVP}
