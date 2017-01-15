@@ -117,11 +117,11 @@ preprocessed_data_0.7 <- MVP::apply_clique_method(ToF_Positive_Ion_Cardiovascula
 [1] "# of records (Before): 3567 -> # of records (After): 3567"
 ```
 
-> First argument represent the reformated data from first step
-> Second argument shows index of identifier (m/z, retention time ...) column  
-> Third argument is the similarity threshold of each identifier 
-> Fourth argument should be set index of intensity signal column  
-> Fifth argument is record similarity when merging duplicate candidate records
+> First argument represent the reformated data from first step  
+> Second argument shows index of identifier (m/z, retention time ...) column    
+> Third argument is the similarity threshold of each identifier   
+> Fourth argument should be set index of intensity signal column    
+> Fifth argument is record similarity when merging duplicate candidate records  
 
 
 Users can specify parameters like this form  
