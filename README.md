@@ -29,9 +29,9 @@ In the package, we previde three example datasets that is reformated by first st
 Users can access example dataset from this command.
 
 ```R
-load("data/ToF_Positive_Ion_Cardiovascular_Patient.rda")
-load("data/ToF_Negative_Ion_Cardiovascular_Patient.rda")
-load("data/Orbitrap_Drug_Treatment.rda")
+data("ToF_Positive_Ion_Cardiovascular_Patient.rda")
+data("ToF_Negative_Ion_Cardiovascular_Patient.rda")
+data("Orbitrap_Drug_Treatment.rda")
 ```
 
 Example data has form like this:
