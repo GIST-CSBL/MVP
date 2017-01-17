@@ -31,7 +31,6 @@ Users can access example dataset from this command.
 ```R
 data("ToF_Positive_Ion_Cardiovascular_Patient.rda")
 data("ToF_Negative_Ion_Cardiovascular_Patient.rda")
-data("Orbitrap_Drug_Treatment.rda")
 ```
 
 Example data has form like this:
