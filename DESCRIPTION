@@ -3,11 +3,11 @@ Type: Package
 Title: An implementation of Mass spectrometry Data Preprocessor
 Version: 0.1.0
 Author@R: as.person(c(
-    "Geunho Lee <ghlee0513@gist.ac.kr> [aut, cre]",
+    "Geunho Lee <lkh7689@gmail.com> [aut, cre]",
     "Hojung Nam <hjnam@gist.ac.kr> [cph]"
     ))
 Author: Geunho Lee [aut, cre]
-Maintainer: Geunho Lee <ghlee0513@gist.ac.kr>
+Maintainer: Geunho Lee <lkh7689@gmail.com>
 Description: An implementation of mass spectrometry data preprocessor in R.
     MVP handles dirty data such as duplicate records and missing values
     in Mass spectrometry (MS) data. Users are able to obtain the results for
